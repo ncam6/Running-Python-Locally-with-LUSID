@@ -1,0 +1,10 @@
+# Ignore virtual environments
+.venv/
+__pycache__/
+*.pyc
+
+# Ignore Jupyter Notebook stuff (if applicable)
+.ipynb_checkpoints/
+
+# System files
+.DS_Store
