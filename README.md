@@ -1,6 +1,6 @@
 # LUSID Python SDK Local Dev Setup
 
-This guide walks you through setting up a secure, reproducible local environment for working with the Finbourne LUSID Python SDK (v2), using modern tools like `uv` for dependency management and `1Password` for secrets management.
+This guide walks you through setting up a secure, reproducible local environment for working with the Finbourne LUSID Python SDK (v2), using tools `uv` for dependency management and `1Password` for secrets management.
 
 ---
 
@@ -12,13 +12,7 @@ Before you begin, ensure you have the following installed:
 Install from https://www.python.org/
 
 ### 2. [1Password CLI (`op`)](https://developer.1password.com/docs/cli/get-started/)
-```powershell
-op account add --signin
-```
-Ensure it works:
-```powershell
-op whoami
-```
+Follow the instructions on the above page to get set up using 1passwordCLI
 
 ### 3. Install `uv`
 ```powershell
@@ -39,6 +33,7 @@ op item create --title "yourname@yourdomain" `
   clientId="your-client-id" `
   clientSecret="your-client-secret" `
   password="your-lusid-password"
+  tokenUrl="your-token-url"
 ```
 
 ---
