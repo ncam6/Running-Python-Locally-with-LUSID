@@ -1,0 +1,12 @@
+[project]
+name = "lusid-local-env"
+version = "0.1.0"
+description = "Local LUSID SDK v2 dev environment"
+requires-python = ">=3.10"
+
+dependencies = [
+    "lusid-sdk==2.*",
+    "finbourne-sdk-utils",
+    "pandas",
+    "jupyter"
+]
