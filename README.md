@@ -19,6 +19,8 @@ Follow the instructions on the above page to get set up using 1passwordCLI
 pip install uv
 ```
 
+### 4. Clone this repository to your desired project location 
+
 ---
 
 ## Step-by-Step Setup
