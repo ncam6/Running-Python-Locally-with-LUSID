@@ -25,7 +25,7 @@ pip install uv
 
 ### 1. Create a Secure Item in 1Password
 
-Use the CLI or UI to store your LUSID secrets (no access token needed).
+Use the CLI or UI to store your LUSID secrets (if you havent generated a secrets file yet, follow [this Knowledge Base Article (`op`)](https://support.lusid.com/docs/how-do-i-generate-and-reveal-a-client-secret?highlight=secrets).
 
 ```powershell
 op item create --title "yourname@yourdomain" `
