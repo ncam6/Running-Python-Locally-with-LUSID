@@ -38,14 +38,14 @@ op item create --title "yourname@yourdomain" `
 
 ---
 
-### 2. Save `wla.ps1` in Project Folder
+### 2. Save `wla.ps1` in a designated Scripts folder on your device, i.e. "C:\Users\Name\Documents\Scripts"
 
 Create a file called `wla.ps1`:
 
 ```powershell
 $fieldToEnvVarMap = @{
     "username"      = "FBN_LUSID_USER"
-    "accessToken"   = "FBN_ACCESS_TOKEN"
+    "tokenUrl"   = "FBN_ACCESS_TOKEN"
     "clientId"      = "FBN_LUSID_CLIENT_ID"
     "clientSecret"  = "FBN_LUSID_CLIENT_SECRET"
     "password"      = "FBN_LUSID_PASSWORD"
@@ -107,7 +107,7 @@ notepad $PROFILE
 
 Add this line:
 ```powershell
-Set-Alias wla "C:\path\to\your\project\wla.ps1"
+Set-Alias wla "C:\path\to\your\scripts\wla.ps1"
 ```
 
 Restart terminal.
@@ -116,7 +116,7 @@ Restart terminal.
 
 ### 4. Define Your Dependencies: `pyproject.toml`
 
-Create this file in your project root:
+Some pre-defined dependencies are in this file, you can add any others to this file of needed:
 
 ```toml
 [project]
@@ -139,16 +139,28 @@ dependencies = [
 
 From the project directory:
 ```powershell
-wla yourname@yourdomain uv pip install
+wla yourname@yourdomain uv pip install --editable
 ```
 
 This installs and locks your dependencies in `uv.lock`.
 
 ---
 
-### 6. Run LUSID Code
+### 6. Run LUSID Code in VS Code
 
-Create `main.py`:
+####Open the project in VS Code
+
+```powershell
+wla yourname@yourdomain code .
+```
+
+####Ensure you are using the correct Python Interpretter :
+You should see something like this:
+```bash
+(.venv) Python 3.13.2  →  .\.venv\Scripts\python.exe
+```
+
+####Run `main.py`
 
 ```python
 from lusid import SyncApiClientFactory, EnvironmentVariablesConfigurationLoader
@@ -164,18 +176,6 @@ df = pd.DataFrame(lusid_versions.to_dict())
 print(df)
 ```
 
-Run it:
-```powershell
-wla yourname@yourdomain uv python main.py
-```
-
----
-
-### Optional: VS Code
-To launch VS Code with all env vars:
-```powershell
-wla yourname@yourdomain code .
-```
 
 ---
 
