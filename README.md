@@ -150,19 +150,19 @@ This installs and locks your dependencies in `uv.lock`.
 
 ### 6. Run LUSID Code in VS Code
 
-####Open the project in VS Code
+(a) Open the project in VS Code
 
 ```powershell
 wla yourname@yourdomain code .
 ```
 
-####Ensure you are using the correct Python Interpretter :
+(b) Ensure you are using the correct Python Interpretter :
 You should see something like this:
 ```bash
 (.venv) Python 3.13.2  →  .\.venv\Scripts\python.exe
 ```
 
-####Run `main.py`
+(c) Run `main.py`
 
 ```python
 from lusid import SyncApiClientFactory, EnvironmentVariablesConfigurationLoader
