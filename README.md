@@ -46,11 +46,11 @@ Create a file called `wla.ps1`:
 
 ```powershell
 $fieldToEnvVarMap = @{
-    "username"      = "FBN_LUSID_USER"
+    "username"      = "FBN_USERNAME"
     "tokenUrl"   = "FBN_ACCESS_TOKEN"
-    "clientId"      = "FBN_LUSID_CLIENT_ID"
-    "clientSecret"  = "FBN_LUSID_CLIENT_SECRET"
-    "password"      = "FBN_LUSID_PASSWORD"
+    "clientId"      = "FBN_CLIENT_ID"
+    "clientSecret"  = "FBN_CLIENT_SECRET"
+    "password"      = "FBN_PASSWORD"
 }
 
 if ($args.Count -lt 2) {
