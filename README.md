@@ -41,23 +41,8 @@ op item create --title "yourname@yourdomain" `
 
 ---
 
-### 2. Save `wla.ps1` from auth-helpers in a designated Scripts folder on your device, i.e. "C:\Users\Name\Documents\Scripts"
+### 2. Save `wla.ps1` from auth-helpers in a designated Scripts folder on your device, i.e. "C:\Users\Name\Documents\Scripts" and create alias as instructed there
 
-
-
-### 3. Alias the `wla` Command
-
-Open PowerShell profile:
-
-```powershell
-if (!(Test-Path -Path (Split-Path -Parent $PROFILE))) {
-    New-Item -ItemType Directory -Path (Split-Path -Parent $PROFILE)
-}
-if (!(Test-Path $PROFILE)) {
-    New-Item -Path $PROFILE -ItemType File -Force
-}
-notepad $PROFILE
-```
 
 Add this line:
 ```powershell
@@ -67,7 +52,7 @@ Set-Alias wla "C:\path\to\your\scripts\wla.ps1"
 Restart terminal.
 
 ---
-### 4. Go to your repository with a dependencies file, and run command :
+### 3. Go to your repository with a dependencies file, and run command :
 ```powershell
 uv init
 ```
