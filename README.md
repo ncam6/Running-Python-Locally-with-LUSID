@@ -1,4 +1,4 @@
-# LUSID Python SDK Local Dev Setup
+# LUSID Python SDK Local Dev Setup - Windows Powershell
 
 This guide walks you through setting up a secure, reproducible local environment for working with the Finbourne LUSID Python SDK (v2), using tools `uv` for dependency management and `1Password` for secrets management.
 
@@ -18,8 +18,9 @@ Follow the instructions on the above page to get set up using 1passwordCLI
 ```powershell
 pip install uv
 ```
+### 4. Install vscode
 
-### 4. Clone this repository to your desired project location 
+### 5. Install git
 
 ---
 
@@ -35,63 +36,14 @@ op item create --title "yourname@yourdomain" `
   clientId="your-client-id" `
   clientSecret="your-client-secret" `
   password="your-lusid-password"
-  tokenUrl="your-token-url"
+  accessToken="your personal access token"
 ```
 
 ---
 
-### 2. Save `wla.ps1` in a designated Scripts folder on your device, i.e. "C:\Users\Name\Documents\Scripts"
+### 2. Save `wla.ps1` from auth-helpers in a designated Scripts folder on your device, i.e. "C:\Users\Name\Documents\Scripts"
 
-Create a file called `wla.ps1`:
 
-```powershell
-$fieldToEnvVarMap = @{
-    "username"      = "FBN_USERNAME"
-    "tokenUrl"   = "FBN_ACCESS_TOKEN"
-    "clientId"      = "FBN_CLIENT_ID"
-    "clientSecret"  = "FBN_CLIENT_SECRET"
-    "password"      = "FBN_PASSWORD"
-}
-
-if ($args.Count -lt 2) {
-    Write-Host "Usage: .\wla.ps1 <itemName> <commandline...>"
-    exit 1
-}
-$itemName = $args[0]
-$command = $args[1]
-$commandArgs = $args[2..$args.Count]
-
-$secret = & op item get $itemName --format json | ConvertFrom-Json
-if ($LASTEXITCODE -ne 0) {
-    Write-Host "Failed to fetch secret from 1Password. Exiting."
-    exit $LASTEXITCODE
-}
-
-foreach ($field in $secret.fields) {
-    if ($field.value -and $field.label -and $fieldToEnvVarMap.ContainsKey($field.label)) {
-        $envVarName = $fieldToEnvVarMap[$field.label]
-        [System.Environment]::SetEnvironmentVariable($envVarName, $field.value, "Process")
-    }
-}
-
-$dom = ($itemName -split "@")[1]
-$base = "https://$dom.lusid.com"
-$envVars = @{
-    "FBN_LUSID_ENV"       = "$base"
-    "FBN_LUSID_API_URL"   = "$base/api"
-    "FBN_ACCESS_API_URL"  = "$base/access"
-    "FBN_DRIVE_API_URL"   = "$base/drive"
-}
-foreach ($key in $envVars.Keys) {
-    [System.Environment]::SetEnvironmentVariable($key, $envVars[$key], "Process")
-}
-
-Write-Host "Executing command: $($command + $commandArgs -join ' ')"
-& $command $commandArgs
-exit $LASTEXITCODE
-```
-
----
 
 ### 3. Alias the `wla` Command
 
@@ -115,72 +67,11 @@ Set-Alias wla "C:\path\to\your\scripts\wla.ps1"
 Restart terminal.
 
 ---
-
-### 4. Define Your Dependencies: `pyproject.toml`
-
-Some pre-defined dependencies are in this file, you can add any others to this file of needed:
-
-```toml
-[project]
-name = "lusid-local-env"
-version = "0.1.0"
-description = "Local LUSID SDK v2 dev environment"
-requires-python = ">=3.10"
-
-dependencies = [
-    "lusid-sdk==2.*",
-    "finbourne-sdk-utils",
-    "pandas",
-    "jupyter"
-]
-```
-
----
-
-### 5. Install Everything
-
-From the project directory:
+### 4. Go to your repository with a dependencies file, and run command :
 ```powershell
-wla yourname@yourdomain uv pip install --editable
-```
-
-This installs and locks your dependencies in `uv.lock`.
-
----
-
-### 6. Run LUSID Code in VS Code
-
-(a) Open the project in VS Code
-
-```powershell
-wla yourname@yourdomain code .
-```
-
-(b) Ensure you are using the correct Python Interpretter :
-You should see something like this:
-```bash
-(.venv) Python 3.13.2  →  .\.venv\Scripts\python.exe
-```
-
-(c) Run `main.py`
-
-```python
-from lusid import SyncApiClientFactory, EnvironmentVariablesConfigurationLoader
-from lusid.api import ApplicationMetadataApi
-import pandas as pd
-
-config_loaders = [EnvironmentVariablesConfigurationLoader()]
-factory = SyncApiClientFactory(config_loaders=config_loaders)
-metadata_api = factory.build(ApplicationMetadataApi)
-
-lusid_versions = metadata_api.get_lusid_versions()
-df = pd.DataFrame(lusid_versions.to_dict())
-print(df)
+uv init
 ```
 
 
----
-
-## You're Done 
 
 
